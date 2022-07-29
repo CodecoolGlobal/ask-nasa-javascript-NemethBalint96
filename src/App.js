@@ -7,14 +7,17 @@ function App() {
   const [post, setPost] = useState(null);
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const maxDate = new Date().toISOString().slice(0, 10);
+  const [main, setMain] = useState(false);
 
   useEffect(() => {
     let mounted = true;
     getTodaysPost().then(data => {
       if(mounted) {
         setPost(data);
+        setMain(true);
       }
-    })
+    });
+
     return () => mounted = false;
   }, [])
 
@@ -27,11 +30,20 @@ function App() {
 
   return (
     <div className="App">
-      <input type="date"
-        value={date}
-        max={maxDate}
-        onChange={handleChange}></input><br></br>
-      {post && <Post data={post}/>}
+      {main ?
+        <>
+        <button onClick={() => setMain(false)}>Gallery</button>
+        <br></br>
+        <input type="date" value={date} max={maxDate}
+        onChange={handleChange}></input>
+        <br></br>
+        <Post data={post}/>
+        </>
+      :
+        <>
+        <button onClick={() => setMain(true)}>Go Back</button>
+        </>
+      }
     </div>
   );
 }
