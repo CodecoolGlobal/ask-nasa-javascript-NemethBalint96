@@ -1,11 +1,12 @@
 import React from 'react'
+import Img from './Img';
 
 function Gallery(props) {
   return (
     <div style={{display: 'flex', justifyContent: 'space-evenly', alignContent: 'center'}}>
-    {props.data.map((item) => 
-      <img src={item.url} alt={item.title}/>
-    )}
+    {props.data.map((item) => (
+      <Img data={item}/>
+    ))}
     </div>
   )
 }
