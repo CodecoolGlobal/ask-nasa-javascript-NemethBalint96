@@ -1,13 +1,15 @@
 import './App.css';
 import Post from './components/Post';
-import { getPostByDate, getTodaysPost } from './Fetch';
+import { getPostByDate, getTodaysPost, getGallery } from './Fetch';
 import React, { useEffect, useState } from 'react';
+import Gallery from './components/Gallery';
 
 function App() {
   const [post, setPost] = useState(null);
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const maxDate = new Date().toISOString().slice(0, 10);
   const [main, setMain] = useState(false);
+  const [gallery, setGallery] = useState([]);
 
   useEffect(() => {
     let mounted = true;
@@ -15,6 +17,11 @@ function App() {
       if(mounted) {
         setPost(data);
         setMain(true);
+      }
+    });
+    getGallery().then(data => {
+      if(mounted) {
+        setGallery(data);
       }
     });
 
@@ -42,6 +49,8 @@ function App() {
       :
         <>
         <button onClick={() => setMain(true)}>Go Back</button>
+        <br></br>
+        <Gallery data={gallery} />
         </>
       }
     </div>

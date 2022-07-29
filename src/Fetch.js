@@ -7,3 +7,8 @@ export function getPostByDate(date) {
   return fetch(`https://api.nasa.gov/planetary/apod?api_key=goKcJW5jRlSawdjoOH0R3dVrMsgf1YWvyyuao9Jt&date=${date}`)
       .then(response => response.json())
 }
+
+export function getGallery() {
+  return fetch('https://api.nasa.gov/planetary/apod?api_key=goKcJW5jRlSawdjoOH0R3dVrMsgf1YWvyyuao9Jt&count=2')
+    .then(response => response.json())
+}
